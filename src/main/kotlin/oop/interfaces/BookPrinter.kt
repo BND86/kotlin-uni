@@ -1,7 +1,5 @@
 package oop.interfaces
 
-import oop.entity.EBook
-
-interface BookPrinter<T : EBook> {
+interface BookPrinter<T> {
     fun printBook(book: T) : String
 }

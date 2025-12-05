@@ -17,8 +17,7 @@ fun main() {
         println(fund.getInfo())
         println("-".repeat(80))
     }
-    
-    // Фильтруем ПИФы, основанные до 2008 года
+
     println("\nПИФы, основанные до 2008 года:")
     println("=".repeat(80))
     val fundsBefore2008 = funds.filter { it.foundationYear < 2008 }
@@ -32,16 +31,12 @@ fun main() {
             println("-".repeat(80))
         }
     }
-    
-    // Дополнительная статистика
+
     println("\nСтатистика:")
     println("Всего ПИФов: ${funds.size}")
     println("ПИФов до 2008 года: ${fundsBefore2008.size}")
 }
 
-/**
- * Создаёт примеры различных типов ПИФов для демонстрации паттерна Decorator
- */
 fun createSampleFunds(): List<MutualFund> {
     return listOf(
         // Обычный ПИФ, основанный до 2008

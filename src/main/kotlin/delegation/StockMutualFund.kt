@@ -1,9 +1,5 @@
 package delegation
 
-/**
- * Декоратор для ПИФа акций
- * Использует делегирование через 'by' для расширения функциональности базового ПИФа
- */
 class StockMutualFund(
     private val base: MutualFund,
     val stockTier: StockTier
