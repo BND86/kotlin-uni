@@ -10,6 +10,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.isActive
+import java.util.concurrent.Executors
 import kotlin.collections.drop
 import kotlin.collections.sumOf
 
@@ -25,7 +26,7 @@ data class UIState(
 )
 
 val phases = listOf(
-    Phase("Говорение", 5),
+    Phase("Говорение", 120),
     Phase("Письмо", 60),
     Phase("Отдых", 30)
 )
@@ -68,7 +69,8 @@ fun main() = runBlocking {
     }
 
     // Ticker coroutine
-    scope.launch {
+    val timerDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+    scope.launch(timerDispatcher) {
         while (isActive) {
             delay(1000)
             if (!paused.value) {
@@ -89,7 +91,7 @@ fun main() = runBlocking {
     }
 
     // User input
-    scope.launch {
+    scope.launch(Dispatchers.IO) {
         while (isActive) {
             screen.pollInput()?.let {
                 when {
@@ -113,6 +115,7 @@ fun main() = runBlocking {
         scope.coroutineContext.job.join()
     } finally {
         screen.stopScreen()
+        timerDispatcher.close()
         println("PROGRAM FINISHED")
     }
 }
