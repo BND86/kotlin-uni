@@ -100,7 +100,6 @@ fun main() = runBlocking {
                     it.keyType == KeyType.Escape -> scope.cancel()
                 }
             }
-            delay(100)
         }
     }
 
