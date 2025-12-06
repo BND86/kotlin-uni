@@ -68,7 +68,7 @@ fun main() = runBlocking {
         )
     }
 
-    // Ticker coroutine
+    // Timer
     val timerDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
     scope.launch(timerDispatcher) {
         while (isActive) {
@@ -76,7 +76,7 @@ fun main() = runBlocking {
             if (!paused.value) {
                 remainingSeconds.update { it - 1 }
                 totalElapsedSeconds.update { it + 1 }
-                if (remainingSeconds.value == 0) {phaseChangeChannel.send(Unit)}
+                if (remainingSeconds.value == 0) phaseChangeChannel.send(Unit)
             }
         }
     }
